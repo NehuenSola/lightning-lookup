@@ -1,0 +1,48 @@
+<template>
+    <div class="slds-form-element__control">
+        <div class="slds-combobox_container">
+
+            <!-- Search Input -->
+            <template lwc:if={isInput}>
+                <lightning-input
+                    disabled={disabled} 
+                    required={isRequired}
+                    label={label}
+                    variant={variantParam}
+                    type="search"
+                    value={selectedValueAux}
+                    onchange={handleInputChange}
+                    onclick={handleOnClick}
+                    onblur={handleOnBlur}>
+                </lightning-input>
+            </template>
+            <template lwc:else>
+                <lightning-pill label={selectedValueAux} onclick={handlePillClick}>
+                    <lightning-icon icon-name="standard:contact" alternative-text="Contact"></lightning-icon>
+                </lightning-pill>
+            </template>
+
+            <template lwc:if={displayList}>
+                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                    <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                            <template for:each={autoCompleteOptions} for:item="option">
+                                <li key={option.name} role="presentation" class="slds-listbox__item"
+                                    onclick={handleOptionClick} data-value={option.reference}
+                                    data-name={option.name} data-label={option.label}>
+                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                        <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                        <span class="slds-media__body">
+                                            <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                        </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+    </div>
+</template>
